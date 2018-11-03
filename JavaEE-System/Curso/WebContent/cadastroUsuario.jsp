@@ -40,13 +40,21 @@
 
 	<div class="container">
 	<table class="responsive-table">
+	<caption>Usuarios Cadastrados</caption>
+	<tr>
+		<th style="text-align: center;">ID</th>
+		<th style="text-align: center;">Login</th>
+		<th style="text-align: center;">Senha</th>
+		<th style="text-align: center;">Exluir</th>
+		<th style="text-align: center;">Editar</th>
+	</tr>
 		<c:forEach items="${usuarios}" var="user">
 			<tr>
 				<td><c:out value="${user.id}"></c:out></td>
 				<td style="width: 150px"><c:out value="${user.login}"></c:out></td>
 				<td><c:out value="${user.senha}"></c:out></td>
-				<td><a href="salvarUsuario?acao=delete&id=${user.id}">Excluir</a></td>
-				<td><a href="salvarUsuario?acao=editar&id=${user.id}">Editar</a></td>
+				<td><a href="salvarUsuario?acao=delete&id=${user.id}"><img src="resources/excluir.png" width="20px" height="20px" title="Excluir"></img></a></td>
+				<td><a href="salvarUsuario?acao=editar&id=${user.id}"><img src="resources/editar.png" width="20px" height="20px" title="Editar"></img></a></td>
 			</tr>
 		</c:forEach>
 	</table>
