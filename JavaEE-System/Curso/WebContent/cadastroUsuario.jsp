@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h1>Cadastro de usuário</h1>
-	<form action="salvarUsuario" method="post">
+	<form action="salvarUsuario" method="post" id="formUser">
 		<ul class="form-style-1">
 			<table>
 				<li>
@@ -21,6 +21,13 @@
 					<td>Id:</td>
 					<td><input type="text" readonly="readonly" id="id" name="id"
 						value="${user.id}" class="field-long"></td>
+				</tr>
+				</li>
+				<li>
+				<tr>
+					<td>Nome:</td>
+					<td><input type="text" id="nome" name="nome"
+						value="${user.nome}" class="field-long"></td>
 				</tr>
 				</li>
 				<tr>
@@ -34,7 +41,7 @@
 						value="${user.senha}" class="field-long"></td>
 				</tr>
 			</table>
-			<input type="submit" value="Salvar">
+			<input type="submit" value="Salvar"> <input type="submit" onclick="document.getElementById(formUser).action = 'salvarUsuario?acao=reset'" value="Cancelar">
 		</ul>
 	</form>
 
@@ -44,7 +51,7 @@
 	<tr>
 		<th style="text-align: center;">ID</th>
 		<th style="text-align: center;">Login</th>
-		<th style="text-align: center;">Senha</th>
+		<th style="text-align: center;">Nome</th>
 		<th style="text-align: center;">Exluir</th>
 		<th style="text-align: center;">Editar</th>
 	</tr>
@@ -52,7 +59,7 @@
 			<tr>
 				<td><c:out value="${user.id}"></c:out></td>
 				<td style="width: 150px"><c:out value="${user.login}"></c:out></td>
-				<td><c:out value="${user.senha}"></c:out></td>
+				<td><c:out value="${user.nome}"></c:out></td>
 				<td><a href="salvarUsuario?acao=delete&id=${user.id}"><img src="resources/excluir.png" width="20px" height="20px" title="Excluir"></img></a></td>
 				<td><a href="salvarUsuario?acao=editar&id=${user.id}"><img src="resources/editar.png" width="20px" height="20px" title="Editar"></img></a></td>
 			</tr>

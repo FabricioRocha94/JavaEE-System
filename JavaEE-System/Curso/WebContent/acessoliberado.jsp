@@ -7,6 +7,6 @@
 <body>
     Acesso liberado
     
-    <a href="cadastroUsuario.jsp">Cadastro de Usuário</a>
+    <a href="salvarUsuario?acao=listarTodos">Cadastro de Usuário</a>
 </body>
 </html>

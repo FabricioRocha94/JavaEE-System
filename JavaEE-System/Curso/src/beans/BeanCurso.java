@@ -1,6 +1,11 @@
 package beans;
 
 public class BeanCurso {
+    private String login;
+    private String senha;
+    private String nome;
+    private Long id;
+    
     public String getLogin() {
         return login;
     }
@@ -25,8 +30,14 @@ public class BeanCurso {
 		this.id = id;
 	}
 
-    private String login;
-    private String senha;
-    private Long id;
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
 
 }
