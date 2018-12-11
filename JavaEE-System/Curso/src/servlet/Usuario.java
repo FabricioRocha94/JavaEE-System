@@ -91,10 +91,14 @@ public class Usuario extends HttpServlet {
 			usuario.setSenha(senha);
 			
 			try {
+				
+				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {
+					request.setAttribute("msg", "Ocorreu um erro ao criar o cadastro.");
+				}
 
-				if (id == null || id.isEmpty()) {
+				if (id == null || id.isEmpty() && daoUsuario.validarLogin(login)) {
 					daoUsuario.salvar(usuario);
-				} else {
+				} else if (id == null || id.isEmpty()){
 					daoUsuario.atualizar(usuario);
 				}
 

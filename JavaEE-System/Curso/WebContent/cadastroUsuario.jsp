@@ -11,8 +11,11 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="resources/css/cadastro.css" />
 </head>
-<body>
+<body><
+	<center>
 	<h1>Cadastro de usuário</h1>
+	<h3>${msg}</h3>
+	</center>
 	<form action="salvarUsuario" method="post" id="formUser">
 		<ul class="form-style-1">
 			<table>
