@@ -7,6 +7,7 @@
 <body>
     Acesso liberado
     
-    <a href="salvarUsuario?acao=listarTodos">Cadastro de Usuário</a>
+    <a href="salvarUsuario?acao=listarTodos"><br><img src="resources/user-icon.png" width="100px" height="100px" title="Cadastrar Usuario"/></a>
+    
 </body>
 </html>

@@ -11,10 +11,11 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="resources/css/cadastro.css" />
 </head>
-<body><
+<body>
+	<
 	<center>
-	<h1>Cadastro de usuário</h1>
-	<h3>${msg}</h3>
+		<h1>Cadastro de usuário</h1>
+		<h3 style="color: orange;">${msg}</h3>
 	</center>
 	<form action="salvarUsuario" method="post" id="formUser">
 		<ul class="form-style-1">
@@ -43,31 +44,45 @@
 					<td><input type="password" id="senha" name="senha"
 						value="${user.senha}" class="field-long"></td>
 				</tr>
+				<tr>
+					<td>Telefone:</td>
+					<td><input type="text" id="telefone" name="telefone"
+						value="${user.telefone}" class="field-long"></td>
+				</tr>
 			</table>
-			<input type="submit" value="Salvar"> <input type="submit" onclick="document.getElementById(formUser).action = 'salvarUsuario?acao=reset'" value="Cancelar">
+			<input type="submit" value="Salvar">
+			<input type="submit"
+				onclick="document.getElementById(formUser).action = 'salvarUsuario?acao=reset'"
+				value="Cancelar">
 		</ul>
 	</form>
 
 	<div class="container">
-	<table class="responsive-table">
-	<caption>Usuarios Cadastrados</caption>
-	<tr>
-		<th style="text-align: center;">ID</th>
-		<th style="text-align: center;">Login</th>
-		<th style="text-align: center;">Nome</th>
-		<th style="text-align: center;">Exluir</th>
-		<th style="text-align: center;">Editar</th>
-	</tr>
-		<c:forEach items="${usuarios}" var="user">
+		<table class="responsive-table">
+			<caption>Usuarios Cadastrados</caption>
 			<tr>
-				<td><c:out value="${user.id}"></c:out></td>
-				<td style="width: 150px"><c:out value="${user.login}"></c:out></td>
-				<td><c:out value="${user.nome}"></c:out></td>
-				<td><a href="salvarUsuario?acao=delete&id=${user.id}"><img src="resources/excluir.png" width="20px" height="20px" title="Excluir"></img></a></td>
-				<td><a href="salvarUsuario?acao=editar&id=${user.id}"><img src="resources/editar.png" width="20px" height="20px" title="Editar"></img></a></td>
+				<th style="text-align: center;">ID</th>
+				<th style="text-align: center;">Login</th>
+				<th style="text-align: center;">Nome</th>
+				<th style="text-align: center;">Telefone</th>
+				<th style="text-align: center;">Exluir</th>
+				<th style="text-align: center;">Editar</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach items="${usuarios}" var="user">
+				<tr>
+					<td><c:out value="${user.id}"></c:out></td>
+					<td style="width: 150px"><c:out value="${user.login}"></c:out></td>
+					<td><c:out value="${user.nome}"></c:out></td>
+					<td><c:out value="${user.telefone}"></c:out></td>
+					<td><a href="salvarUsuario?acao=delete&id=${user.id}"><img
+							src="resources/excluir.png" width="20px" height="20px"
+							title="Excluir"></img></a></td>
+					<td><a href="salvarUsuario?acao=editar&id=${user.id}"><img
+							src="resources/editar.png" width="20px" height="20px"
+							title="Editar"></img></a></td>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
 </body>
 </html>

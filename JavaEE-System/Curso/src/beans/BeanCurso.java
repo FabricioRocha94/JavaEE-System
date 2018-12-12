@@ -4,6 +4,7 @@ public class BeanCurso {
     private String login;
     private String senha;
     private String nome;
+    private String telefone;
     private Long id;
     
     public String getLogin() {
@@ -37,7 +38,13 @@ public class BeanCurso {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}	
 
 }

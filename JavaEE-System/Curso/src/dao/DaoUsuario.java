@@ -1,5 +1,6 @@
 package dao;
 
+import java.awt.Insets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,12 +26,13 @@ public class DaoUsuario {
 	public void salvar(BeanCurso usuario) throws Exception {
 		try {
 
-			String sql = "INSERT INTO usuario (login, senha, nome) VALUES (?, ?, ?)";
+			String sql = "INSERT INTO usuario (login, senha, nome, telefone) VALUES (?, ?, ?, ?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
 			insert.setString(3, usuario.getNome());
+			insert.setString(4, usuario.getTelefone());
 			insert.execute();
 			connection.commit();
 		} catch (Exception e) {
@@ -56,6 +58,7 @@ public class DaoUsuario {
 			beanCurso.setLogin(resultSet.getString("login"));
 			beanCurso.setSenha(resultSet.getString("senha"));
 			beanCurso.setNome(resultSet.getString("nome"));
+			beanCurso.setTelefone(resultSet.getString("telefone"));
 
 			lista.add(beanCurso);
 		}
@@ -90,6 +93,7 @@ public class DaoUsuario {
 			beanCurso.setLogin(resultSet.getString("login"));
 			beanCurso.setSenha(resultSet.getString("senha"));
 			beanCurso.setNome(resultSet.getString("nome"));
+			beanCurso.setTelefone(resultSet.getString("telefone"));
 			return beanCurso;
 		}
 
@@ -109,12 +113,13 @@ public class DaoUsuario {
 
 	public void atualizar(BeanCurso usuario) {
 		try {
-			String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ? WHERE id = ?";
+			String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, telefone = ? WHERE id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, usuario.getLogin());
 			preparedStatement.setString(2, usuario.getSenha());
 			preparedStatement.setString(3,  usuario.getNome());
-			preparedStatement.setLong(4, usuario.getId());
+			preparedStatement.setString(4, usuario.getTelefone());
+			preparedStatement.setLong(5, usuario.getId());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e) {
