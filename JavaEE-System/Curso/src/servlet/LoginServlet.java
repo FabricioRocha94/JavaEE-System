@@ -5,14 +5,14 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
 
-import beans.BeanCurso;
+import beans.Usuario;
 import dao.DaoLogin;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends javax.servlet.http.HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         try {
-    	BeanCurso beanCurso = new BeanCurso();
+    	Usuario beanCurso = new Usuario();
         DaoLogin loginDAO = new DaoLogin();
         
         String login = request.getParameter("login");

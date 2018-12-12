@@ -10,10 +10,10 @@ import java.util.List;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
-import beans.BeanCurso;
+import beans.Usuario;
 import connection.SingleConnection;
 import servlet.LoginServlet;
-import servlet.Usuario;
+import servlet.UsuarioServlet;
 
 public class DaoUsuario {
 
@@ -23,7 +23,7 @@ public class DaoUsuario {
 		connection = SingleConnection.getConnection();
 	}
 
-	public void salvar(BeanCurso usuario) throws Exception {
+	public void salvar(Usuario usuario) throws Exception {
 		try {
 
 			String sql = "INSERT INTO usuario (login, senha, nome, telefone) VALUES (?, ?, ?, ?)";
@@ -46,14 +46,14 @@ public class DaoUsuario {
 		}
 	}
 
-	public List<BeanCurso> listar() throws Exception {
-		List<BeanCurso> lista = new ArrayList<>();
+	public List<Usuario> listar() throws Exception {
+		List<Usuario> lista = new ArrayList<>();
 		String sql = "SELECT * FROM usuario";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultSet = statement.executeQuery();
 
 		while (resultSet.next()) {
-			BeanCurso beanCurso = new BeanCurso();
+			Usuario beanCurso = new Usuario();
 			beanCurso.setId(resultSet.getLong("id"));
 			beanCurso.setLogin(resultSet.getString("login"));
 			beanCurso.setSenha(resultSet.getString("senha"));
@@ -83,12 +83,12 @@ public class DaoUsuario {
 		}
 	}
 
-	public BeanCurso consultar(int id) throws Exception {
+	public Usuario consultar(int id) throws Exception {
 		String sql = "SELECT * FROM usuario WHERE id = " + id;
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		ResultSet resultSet = preparedStatement.executeQuery();
 		if (resultSet.next()) {
-			BeanCurso beanCurso = new BeanCurso();
+			Usuario beanCurso = new Usuario();
 			beanCurso.setId(resultSet.getLong("id"));
 			beanCurso.setLogin(resultSet.getString("login"));
 			beanCurso.setSenha(resultSet.getString("senha"));
@@ -110,8 +110,19 @@ public class DaoUsuario {
 
 		return false;
 	}
+	
+	public boolean validarSenha(String senha) throws Exception {
+		String sql = "SELECT count(1) as qtd FROM usuario WHERE senha = '" + senha + "';";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		if (resultSet.next()) {
+			return resultSet.getInt("qtd") <= 0;
+		}
 
-	public void atualizar(BeanCurso usuario) {
+		return false;
+	}
+
+	public void atualizar(Usuario usuario) {
 		try {
 			String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, telefone = ? WHERE id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);

@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.ibm.CORBA.iiop.Request;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 
-import beans.BeanCurso;
+import beans.Usuario;
 import dao.DaoUsuario;
 
 /**
  * Servlet implementation class Usuario
  */
 @WebServlet("/salvarUsuario")
-public class Usuario extends HttpServlet {
+public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DaoUsuario daoUsuario = new DaoUsuario();
 
-	public Usuario() {
+	public UsuarioServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -45,7 +45,7 @@ public class Usuario extends HttpServlet {
 				view.forward(request, response);
 			} else if (acao.equals("editar")) {
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
-				BeanCurso usuario = daoUsuario.consultar(Integer.parseInt(id));
+				Usuario usuario = daoUsuario.consultar(Integer.parseInt(id));
 				request.setAttribute("user", usuario);
 				view.forward(request, response);
 			} else if (acao.equals("listarTodos")) {
@@ -84,8 +84,10 @@ public class Usuario extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String telefone = request.getParameter("telefone");
+			boolean podeInserir = true;
+			String msg = null;
 
-			BeanCurso usuario = new BeanCurso();
+			Usuario usuario = new Usuario();
 			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 			usuario.setNome(nome);
 			usuario.setLogin(login);
@@ -94,14 +96,29 @@ public class Usuario extends HttpServlet {
 			
 			try {
 				
-				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {
-					request.setAttribute("msg", "Ocorreu um erro ao criar o cadastro.");
+				if(!daoUsuario.validarLogin(login)) {
+					msg = "Este login já esta em uso!";
+					podeInserir = false;
+				}
+				
+				if (!daoUsuario.validarSenha(senha)) {
+					msg = "Esta senha já esta em uso!";
+					podeInserir = false;
 				}
 
-				if (id == null || id.isEmpty() && daoUsuario.validarLogin(login)) {
+				if (id == null || id.isEmpty() && podeInserir) {
 					daoUsuario.salvar(usuario);
 				} else if (id == null || id.isEmpty()){
 					daoUsuario.atualizar(usuario);
+				}
+				
+				if (msg != null) {
+					request.setAttribute("msg", msg);
+				}
+				
+				if (!podeInserir) {
+					usuario.setId(null);
+					request.setAttribute("user", usuario);
 				}
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
