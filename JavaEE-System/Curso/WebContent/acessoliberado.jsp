@@ -6,8 +6,8 @@
 </head>
 <body>
     Acesso liberado
-    
-    <a href="salvarUsuario?acao=listarTodos"><br><img src="resources/user-icon.png" width="100px" height="100px" title="Cadastrar Usuario"/></a>
-    
+    <br>
+    <a href="salvarUsuario?acao=listarTodos"><img src="resources/user-icon.png" width="100px" height="100px" title="Cadastrar Usuario"/></a>
+    <a href="salvarProduto?acao=listarTodos"><img src="resources/product-icon.png" width="150px" height="100px" title="Cadastrar Produto"/></a>
 </body>
 </html>

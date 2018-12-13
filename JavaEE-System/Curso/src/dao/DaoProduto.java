@@ -51,8 +51,8 @@ public class DaoProduto {
 			Produto beanCurso = new Produto();
 			beanCurso.setId(resultSet.getInt("id"));
 			beanCurso.setNome(resultSet.getString("nome"));
-			beanCurso.setQuantidade(resultSet.getFloat("qtd"));
-			beanCurso.setValor(resultSet.getFloat("valor"));
+			beanCurso.setQuantidade(resultSet.getDouble("qtd"));
+			beanCurso.setValor(resultSet.getDouble("valor"));
 
 			lista.add(beanCurso);
 		}
@@ -85,8 +85,8 @@ public class DaoProduto {
 			Produto beanCurso = new Produto();
 			beanCurso.setId(resultSet.getInt("id"));
 			beanCurso.setNome(resultSet.getString("nome"));
-			beanCurso.setQuantidade(resultSet.getFloat("qtd"));
-			beanCurso.setValor(resultSet.getFloat("valor"));
+			beanCurso.setQuantidade(resultSet.getDouble("qtd"));
+			beanCurso.setValor(resultSet.getDouble("valor"));
 			
 			return beanCurso;
 		}
@@ -101,7 +101,7 @@ public class DaoProduto {
 			preparedStatement.setString(1, produto.getNome());
 			preparedStatement.setDouble(2, produto.getQuantidade());
 			preparedStatement.setDouble(3, produto.getValor());
-			preparedStatement.setInt(5, produto.getId());
+			preparedStatement.setInt(4, produto.getId());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e) {
