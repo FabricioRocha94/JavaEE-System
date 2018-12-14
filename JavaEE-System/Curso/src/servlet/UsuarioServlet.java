@@ -76,7 +76,7 @@ public class UsuarioServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		} else {
 
 			String id = request.getParameter("id");
@@ -84,8 +84,6 @@ public class UsuarioServlet extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String telefone = request.getParameter("telefone");
-			boolean podeInserir = true;
-			String msg = null;
 
 			Usuario usuario = new Usuario();
 			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
@@ -93,29 +91,40 @@ public class UsuarioServlet extends HttpServlet {
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			usuario.setTelefone(telefone);
-			
+
 			try {
-				
-				if(!daoUsuario.validarLogin(login)) {
+
+				boolean podeInserir = true;
+				String msg = null;
+
+				if (nome == null || nome.isEmpty()) {
+					msg = "Nome deve ser informado";
+					podeInserir = false;
+				} else if (login == null || login.isEmpty()) {
+					msg = "Login deve ser informado";
+					podeInserir = false;
+				} else if (senha == null || senha.isEmpty()) {
+					msg = "Senha deve ser informada";
+					podeInserir = false;
+				} else if (telefone == null || telefone.isEmpty()) {
+					msg = "Telefone deve ser informado";
+					podeInserir = false;
+				} else if (!daoUsuario.validarLogin(login)) {
 					msg = "Este login já esta em uso!";
 					podeInserir = false;
-				}
-				
-				if (!daoUsuario.validarSenha(senha)) {
+				} else if (!daoUsuario.validarSenha(senha)) {
 					msg = "Esta senha já esta em uso!";
 					podeInserir = false;
 				}
 
-				if (id == null || id.isEmpty() && podeInserir) {
-					daoUsuario.salvar(usuario);
-				} else if (id == null || id.isEmpty()){
-					daoUsuario.atualizar(usuario);
-				}
-				
 				if (msg != null) {
 					request.setAttribute("msg", msg);
+				} else if (id == null || id.isEmpty() && podeInserir) {
+					daoUsuario.salvar(usuario);
+				} else if (id == null || id.isEmpty()) {
+					daoUsuario.atualizar(usuario);
 				}
-				
+
 				if (!podeInserir) {
 					usuario.setId(null);
 					request.setAttribute("user", usuario);

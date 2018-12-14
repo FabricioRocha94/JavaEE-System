@@ -57,8 +57,9 @@ public class ProdutoServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String acao = request.getParameter("acao");
 
 		if (acao != null && acao.equals("reset")) {
@@ -71,7 +72,7 @@ public class ProdutoServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		} else {
 
 			String id = request.getParameter("id");
@@ -80,17 +81,42 @@ public class ProdutoServlet extends HttpServlet {
 			String valor = request.getParameter("valor");
 
 			Produto produto = new Produto();
-			produto.setId(!id.isEmpty() ? Integer.parseInt(id) : 0);
+			produto.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 			produto.setNome(nome);
-			produto.setQuantidade(Double.parseDouble(qtd));
-			produto.setValor(Double.parseDouble(valor));
-			
+			if (qtd != null && !qtd.isEmpty()) {
+				produto.setQuantidade(Double.parseDouble(qtd));
+			}
+			if (valor != null && !qtd.isEmpty()) {
+				produto.setValor(Double.parseDouble(valor));
+			}
+
+			String msg = null;
+			boolean podeInserir = true;
+
 			try {
 
-				if (id == null || id.isEmpty()) {
+				if (nome == null || nome.isEmpty()) {
+					msg = "Nome deve ser informado";
+					podeInserir = false;
+				} else if (qtd == null || qtd.isEmpty()) {
+					msg = "Quantidade deve ser informada";
+					podeInserir = false;
+				} else if (valor == null || valor.isEmpty()) {
+					msg = "Valor deve ser informado";
+					podeInserir = false;
+				}
+
+				if (msg != null) {
+					request.setAttribute("msg", msg);
+				} else if (id == null || id.isEmpty()) {
 					produtoDao.salvar(produto);
 				} else {
 					produtoDao.atualizar(produto);
+				}
+
+				if (!podeInserir) {
+					produto.setId(null);
+					request.setAttribute("produto", produto);
 				}
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroProduto.jsp");
@@ -103,4 +129,3 @@ public class ProdutoServlet extends HttpServlet {
 		}
 	}
 }
-

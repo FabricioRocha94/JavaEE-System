@@ -2,20 +2,20 @@ package beans;
 
 public class Produto {
 
-	private int id;
+	private Long id;
 	private String nome;
 	private double quantidade;
 	private double valor;
 	
 	
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -49,7 +49,7 @@ public class DaoProduto {
 
 		while (resultSet.next()) {
 			Produto beanCurso = new Produto();
-			beanCurso.setId(resultSet.getInt("id"));
+			beanCurso.setId(resultSet.getLong("id"));
 			beanCurso.setNome(resultSet.getString("nome"));
 			beanCurso.setQuantidade(resultSet.getDouble("qtd"));
 			beanCurso.setValor(resultSet.getDouble("valor"));
@@ -83,7 +83,7 @@ public class DaoProduto {
 		ResultSet resultSet = preparedStatement.executeQuery();
 		if (resultSet.next()) {
 			Produto beanCurso = new Produto();
-			beanCurso.setId(resultSet.getInt("id"));
+			beanCurso.setId(resultSet.getLong("id"));
 			beanCurso.setNome(resultSet.getString("nome"));
 			beanCurso.setQuantidade(resultSet.getDouble("qtd"));
 			beanCurso.setValor(resultSet.getDouble("valor"));
@@ -101,7 +101,7 @@ public class DaoProduto {
 			preparedStatement.setString(1, produto.getNome());
 			preparedStatement.setDouble(2, produto.getQuantidade());
 			preparedStatement.setDouble(3, produto.getValor());
-			preparedStatement.setInt(4, produto.getId());
+			preparedStatement.setLong(4, produto.getId());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e) {
