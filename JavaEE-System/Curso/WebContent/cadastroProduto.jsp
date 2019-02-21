@@ -73,10 +73,10 @@
 					<td><c:out value="${produto.quantidade}"></c:out></td>
 					<td><c:out value="${produto.valor}"></c:out></td>
 					<td><a href="salvarProduto?acao=delete&id=${produto.id}"><img
-							src="resources/excluir.png" width="20px" height="20px"
+							src="resources/img/excluir.png" width="20px" height="20px"
 							title="Excluir"></img></a></td>
 					<td><a href="salvarProduto?acao=editar&id=${produto.id}"><img
-							src="resources/editar.png" width="20px" height="20px"
+							src="resources/img/editar.png" width="20px" height="20px"
 							title="Editar"></img></a></td>
 				</tr>
 			</c:forEach>

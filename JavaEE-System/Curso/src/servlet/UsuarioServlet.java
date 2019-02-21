@@ -34,7 +34,6 @@ public class UsuarioServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		try {
 			String acao = request.getParameter("acao");
-			String user = request.getParameter("user");
 			String id = request.getParameter("id");
 
 			if (acao.equals("delete")) {
@@ -84,13 +83,23 @@ public class UsuarioServlet extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String telefone = request.getParameter("telefone");
-
+			String cep = request.getParameter("cep");
+			String rua = request.getParameter("rua");
+			String bairro = request.getParameter("bairro");
+			String cidade = request.getParameter("cidade");
+			String estado = request.getParameter("estado");
+			
 			Usuario usuario = new Usuario();
 			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 			usuario.setNome(nome);
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			usuario.setTelefone(telefone);
+			usuario.setCep(cep);
+			usuario.setRua(rua);
+			usuario.setBairro(bairro);
+			usuario.setCidade(cidade);
+			usuario.setEstado(estado);
 
 			try {
 
@@ -109,11 +118,8 @@ public class UsuarioServlet extends HttpServlet {
 				} else if (telefone == null || telefone.isEmpty()) {
 					msg = "Telefone deve ser informado";
 					podeInserir = false;
-				} else if (!daoUsuario.validarLogin(login)) {
+				} else if (id == null || id.isEmpty() && !daoUsuario.validarLogin(login) ) {
 					msg = "Este login já esta em uso!";
-					podeInserir = false;
-				} else if (!daoUsuario.validarSenha(senha)) {
-					msg = "Esta senha já esta em uso!";
 					podeInserir = false;
 				}
 
@@ -121,8 +127,10 @@ public class UsuarioServlet extends HttpServlet {
 					request.setAttribute("msg", msg);
 				} else if (id == null || id.isEmpty() && podeInserir) {
 					daoUsuario.salvar(usuario);
-				} else if (id == null || id.isEmpty()) {
+					request.setAttribute("msg", "Usuario cadastrado com sucesso!");
+				} else if (id != null || !id.isEmpty() && podeInserir) {
 					daoUsuario.atualizar(usuario);
+					request.setAttribute("msg", "Usuario editado com sucesso!");
 				}
 
 				if (!podeInserir) {

@@ -22,15 +22,18 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
 
 			if (acao.equals("sair")) {
 				request.getSession().invalidate();
-				RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-				view.forward(request, response);
+//				RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+//				view.forward(request, response);
+				response.sendRedirect("index.jsp");
 			} else if (loginDAO.validarLogin(login, senha)) {
 				request.getSession().setAttribute("usuario", usuario);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/acessoliberado.jsp");
-				dispatcher.forward(request, response);
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/acessoliberado.jsp");
+//				dispatcher.forward(request, response);
+				response.sendRedirect("acessoliberado.jsp");
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/acessonegado.jsp");
-				dispatcher.forward(request, response);
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/acessonegado.jsp");
+//				dispatcher.forward(request, response);
+				response.sendRedirect("acessonegao.jsp");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -26,13 +26,19 @@ public class DaoUsuario {
 	public void salvar(Usuario usuario) throws Exception {
 		try {
 
-			String sql = "INSERT INTO usuario (login, senha, nome, telefone) VALUES (?, ?, ?, ?)";
+			String sql = "INSERT INTO usuario (login, senha, nome, telefone, cep, rua, bairro, cidade, estado)"
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
 			insert.setString(3, usuario.getNome());
 			insert.setString(4, usuario.getTelefone());
+			insert.setString(5, usuario.getCep());
+			insert.setString(6, usuario.getRua());
+			insert.setString(7, usuario.getBairro());
+			insert.setString(8, usuario.getCidade());
+			insert.setString(9, usuario.getEstado());
 			insert.execute();
 			connection.commit();
 		} catch (Exception e) {
@@ -59,6 +65,11 @@ public class DaoUsuario {
 			beanCurso.setSenha(resultSet.getString("senha"));
 			beanCurso.setNome(resultSet.getString("nome"));
 			beanCurso.setTelefone(resultSet.getString("telefone"));
+			beanCurso.setCep(resultSet.getString("cep"));
+			beanCurso.setRua(resultSet.getString("rua"));
+			beanCurso.setBairro(resultSet.getString("bairro"));
+			beanCurso.setCidade(resultSet.getString("cidade"));
+			beanCurso.setEstado(resultSet.getString("estado"));
 
 			lista.add(beanCurso);
 		}
@@ -94,6 +105,11 @@ public class DaoUsuario {
 			beanCurso.setSenha(resultSet.getString("senha"));
 			beanCurso.setNome(resultSet.getString("nome"));
 			beanCurso.setTelefone(resultSet.getString("telefone"));
+			beanCurso.setCep(resultSet.getString("cep"));
+			beanCurso.setRua(resultSet.getString("rua"));
+			beanCurso.setBairro(resultSet.getString("bairro"));
+			beanCurso.setCidade(resultSet.getString("cidade"));
+			beanCurso.setEstado(resultSet.getString("estado"));
 			return beanCurso;
 		}
 
@@ -124,13 +140,19 @@ public class DaoUsuario {
 
 	public void atualizar(Usuario usuario) {
 		try {
-			String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, telefone = ? WHERE id = ?";
+			String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, telefone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, estado = ? WHERE id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, usuario.getLogin());
 			preparedStatement.setString(2, usuario.getSenha());
 			preparedStatement.setString(3,  usuario.getNome());
 			preparedStatement.setString(4, usuario.getTelefone());
-			preparedStatement.setLong(5, usuario.getId());
+			preparedStatement.setString(5, usuario.getCep());
+			preparedStatement.setString(6, usuario.getRua());
+			preparedStatement.setString(7, usuario.getBairro());
+			preparedStatement.setString(8, usuario.getCidade());
+			preparedStatement.setString(9, usuario.getEstado());
+			
+			preparedStatement.setLong(10, usuario.getId());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e) {

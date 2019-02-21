@@ -19,7 +19,7 @@
 <body>
     Acesso liberado <a href="LoginServlet?acao=sair">Sair</a>
     <br>
-    <a href="salvarUsuario?acao=listarTodos"><img src="resources/user-icon.png" width="100px" height="100px" title="Cadastrar Usuario"/></a>
-    <a href="salvarProduto?acao=listarTodos"><img src="resources/product-icon.png" width="150px" height="100px" title="Cadastrar Produto"/></a>
+    <a href="salvarUsuario?acao=listarTodos"><img src="resources/img/user-icon.png" width="100px" height="100px" title="Cadastrar Usuario"/></a>
+    <a href="salvarProduto?acao=listarTodos"><img src="resources/img/product-icon.png" width="150px" height="100px" title="Cadastrar Produto"/></a>
 </body>
 </html>
